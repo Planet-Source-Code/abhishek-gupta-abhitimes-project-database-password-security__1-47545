@@ -1,0 +1,46 @@
+Attribute VB_Name = "Module1"
+'******************************************'
+'                  \\|//                   '
+'                  (@ @)                   '
+'   +---------oOO---(_)---OOo-----------+  '
+'   |          Abhishek Gupta           |  '
+'   |   Email: abhitimes@rediffmail.com |  '
+'   |URL  : http://abhitimes.tripod.com |  '
+'   +-----------------------------------+  '
+'                 |__|__|                  '
+'                  || ||                   '
+'                 Ooo Ooo                  '
+'******************************************'
+
+Public cn As New ADODB.Connection
+Dim DBName As String
+Dim DBPass As String
+
+Public Sub cn_open(password As String)
+On Error GoTo caution   ' redirect to error module if password is wrong
+    
+    ' initialize DBPName with Database Name.
+    ' CHANGE IT WITH THE DEFAULT DATABASE NAME
+    DBName = "db1.mdb"
+    
+    ' initialize DBPass with input Password
+    DBPass = password
+    
+    ' Open connection with Database Name and password
+    cn.Open "Provider=Microsoft.JET.OLEDB.4.0; Data Source=" & App.Path & "\" & DBName & "; JET OLEDB:Database Password=" & DBPass
+
+    ' Now redirect to Project startup form
+    ' if password is matched & connection successfully established
+    ' CHANGE IT WITH THE DEFAULT FORM NAME or MDI Form name
+    Form1.Show
+    Exit Sub
+    
+caution:
+    Dim opC
+    opC = MsgBox("Database password is wrong. Do you want to try again?", vbInformation + vbYesNo)
+    If (opC = vbYes) Then
+        frmDBPassword.Show
+    ElseIf (opC = vbNo) Then
+        End
+    End If
+End Sub
